@@ -3,8 +3,7 @@
 #include "dateType.h"
 #include "personType.h"
 
-class extPersonType : personType {
-public:
+class extPersonType : public personType {
 public:
 	extPersonType() {														//constructor
 		phoneNumber = "";													//sets default phoneNumber as  ""

@@ -127,6 +127,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="addressBookType.cpp" />
     <ClCompile Include="addressType.cpp" />
     <ClCompile Include="dateType.cpp" />
     <ClCompile Include="extPersonType.cpp" />
@@ -134,10 +135,14 @@
     <ClCompile Include="personType.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="addressBookType.h" />
     <ClInclude Include="addressType.h" />
     <ClInclude Include="dateType.h" />
     <ClInclude Include="extPersonType.h" />
     <ClInclude Include="personType.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Text.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
