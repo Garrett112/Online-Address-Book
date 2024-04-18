@@ -3,7 +3,7 @@
 #include "dateType.h"
 #include "personType.h"
 
-class extPersonType : personType {
+class extPersonType : public personType {
 public:
 public:
 	extPersonType() {														//constructor
