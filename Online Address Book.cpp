@@ -19,6 +19,7 @@ void showMenu() {
 			cin >> InputL;
 			cout << endl;
 			addressBook.findPerson(InputL);
+			cout << endl;
 		}
 		if (choice == 2) {
 			cout << "Enter Birth Month (Number 1-12): ";
@@ -26,6 +27,7 @@ void showMenu() {
 			cin >> InputM;
 			cout << endl;
 			addressBook.findBirthdays(InputM);
+			cout << endl;
 		}
 		if (choice == 3) {
 			cout << "Enter Relationship (Family, Friend, or Business): ";
@@ -33,9 +35,11 @@ void showMenu() {
 			cin >> InputR;
 			cout << endl;
 			addressBook.findRelationship(InputR);
+			cout << endl;
 		}
 		if (choice == 4) {
 			addressBook.print();
+			cout << endl;
 		}
 		if (choice == 5) {
 			w = 0;
