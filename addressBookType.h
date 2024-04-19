@@ -168,7 +168,7 @@ public:
 
 	}
 	void saveData() {
-		ofstream file("Text1.txt");
+		ofstream file("Text.txt");
 		cursor = first;
 		while (cursor != nullptr) {
 			file << cursor->info.getFirstName() << " " << cursor->info.getLastName() << endl;

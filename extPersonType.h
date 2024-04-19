@@ -42,10 +42,10 @@ public:
 		return birthday.getMonth();											//returns the value of the dateType member function getMonth
 	}
 	void print() {															//has no formal parameters
-		cout << getFirstName() << " " << getLastName() << endl;	//prints firstName, lastName, endl
+		cout << getFirstName() << " " << getLastName() << endl;				//prints firstName, lastName, endl
 		birthday.print();													//calls the dateType member function print
 		address.print();													//calls the addressType member function print
-		cout << phoneNumber << endl << relationship << endl;	//prints phoneNumber, endl, relationship, endl
+		cout << phoneNumber << endl << relationship << endl;				//prints phoneNumber, endl, relationship, endl
 	}
 
 	bool operator==(const extPersonType& other) const {
@@ -55,13 +55,13 @@ public:
 	}
 
 	bool operator!=(const extPersonType& other) const {
-		return !(*this == other); // Leverage already defined == operator
+		return !(*this == other);
 	}
 
 	bool operator>=(const extPersonType& other) const {
 		std::string myKey = lastName + " " + firstName;
 		std::string otherKey = other.lastName + " " + other.firstName;
-		return myKey >= otherKey; // Assuming some comparison logic for keys (e.g., alphabetical)
+		return myKey >= otherKey;
 	}
 	addressType address;
 	dateType birthday;
