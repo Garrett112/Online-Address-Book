@@ -131,7 +131,9 @@
     <ClCompile Include="addressType.cpp" />
     <ClCompile Include="dateType.cpp" />
     <ClCompile Include="extPersonType.cpp" />
+    <ClCompile Include="linkedList.cpp" />
     <ClCompile Include="Online Address Book.cpp" />
+    <ClCompile Include="orderedLinkedList.cpp" />
     <ClCompile Include="personType.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -139,10 +141,13 @@
     <ClInclude Include="addressType.h" />
     <ClInclude Include="dateType.h" />
     <ClInclude Include="extPersonType.h" />
+    <ClInclude Include="linkedList.h" />
+    <ClInclude Include="orderedLinkedList.h" />
     <ClInclude Include="personType.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="Text.txt" />
+    <Text Include="Text1.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

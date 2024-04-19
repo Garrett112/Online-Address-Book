@@ -46,7 +46,22 @@ public:
 		birthday.print();													//calls the dateType member function print
 		address.print();													//calls the addressType member function print
 		cout << phoneNumber << endl << relationship << endl;	//prints phoneNumber, endl, relationship, endl
+	}
 
+	bool operator==(const extPersonType& other) const {
+		std::string myKey = lastName + " " + firstName;
+		std::string otherKey = other.lastName + " " + other.firstName;
+		return myKey == otherKey;
+	}
+
+	bool operator!=(const extPersonType& other) const {
+		return !(*this == other); // Leverage already defined == operator
+	}
+
+	bool operator>=(const extPersonType& other) const {
+		std::string myKey = lastName + " " + firstName;
+		std::string otherKey = other.lastName + " " + other.firstName;
+		return myKey >= otherKey; // Assuming some comparison logic for keys (e.g., alphabetical)
 	}
 	addressType address;
 	dateType birthday;

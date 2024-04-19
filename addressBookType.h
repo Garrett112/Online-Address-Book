@@ -1,15 +1,14 @@
 #pragma once
 #include <fstream>
 #include "extPersonType.h"
+#include "orderedLinkedList.h"
 
-class addressBookType {
+class addressBookType : public orderedLinkedList<extPersonType> {
 public:
 	addressBookType() {
-		length = 0;
-		maxLength = 200;
+		cursor = nullptr;
 	}
 	void initEntry() {
-		int i = 0;
 		string tempFname;
 		string tempLname;
 		int tempDay;
@@ -23,86 +22,168 @@ public:
 		string tempRelation;
 		string line;
 		ifstream file("Text.txt");
-		while (i < 6) {
-			cout << i << endl;
+		while (!file.eof()) {
+			extPersonType newNode;
 			file >> tempFname >> tempLname;
-			addressList[i].setFirstName(tempFname);
-			addressList[i].setLastName(tempLname);
+			newNode.setFirstName(tempFname);
+			newNode.setLastName(tempLname);
 			file >> tempDay >> tempMonth >> tempYear;
-			addressList[i].birthday.setDate(tempMonth, tempDay, tempYear);
+			newNode.birthday.setDate(tempMonth, tempDay, tempYear);
 			getline(file, tempAddress);
 			getline(file, tempAddress);
-			addressList[i].address.setAddress(tempAddress);
+			newNode.address.setAddress(tempAddress);
 			getline(file, tempCity);
 			file >> tempState >> tempZip;
-			addressList[i].address.setCity(tempCity);
-			addressList[i].address.setState(tempState);
-			addressList[i].address.setZipcode(tempZip);
+			newNode.address.setCity(tempCity);
+			newNode.address.setState(tempState);
+			newNode.address.setZipcode(tempZip);
 			file >> tempPhone >> tempRelation;
-			addressList[i].setPhoneNumber(tempPhone);
-			addressList[i].setRelationship(tempRelation);
-			++length;
-			++i;
+			newNode.setPhoneNumber(tempPhone);
+			newNode.setRelationship(tempRelation);
+			insert(newNode);
 		}
 	}
 
 	void addEntry(extPersonType E) {
-		if (length < maxLength) {
-			length++;
-			addressList[length] = E;
-		}
-		else {
-			cout << "Array has reached it's maximum capacity." << endl;
-		}
+		insert(E);
 	}
 	void findPerson(string lName) {
-		for (int i = 0; i <= length; ++i) {
-			if (addressList[i].getLastName() == lName) {
-				addressList[i].print();
+		cursor = first;
+		while (cursor != nullptr) {
+			if (cursor->info.getLastName() == lName) {
+				cursor->info.print();
 			}
+			cursor = cursor->link;
 		}
+		cursor = nullptr;
 	}
 	void findBirthdays(int bDayMonth) {
-		for (int i = 0; i <= length; ++i) {
-			if (addressList[i].getBirthMonth() == bDayMonth) {
-				addressList[i].print();
+		cursor = first;
+		while (cursor != nullptr) {
+			if (cursor->info.getBirthMonth() == bDayMonth) {
+				cursor->info.print();
 			}
 			else {}
+			cursor = cursor->link;
 		}
+		cursor = nullptr;
 	}
 	void findRelationship(string rShip) {
-		for (int i = 0; i <= length; ++i) {
-			if (addressList[i].getRelationship() == rShip) {
-				addressList[i].print();
+		cursor = first;
+		while (cursor != nullptr) {
+			if (cursor->info.getRelationship() == rShip) {
+				cursor->info.print();
 			}
 			else {}
+			cursor = cursor->link;
 		}
+		cursor = nullptr;
 	}
 	void print() {
-		for (int i = 0; i < length; ++i) {
-			addressList[i].print();
+		cursor = first;
+		while (cursor != nullptr) {
+			cursor->info.print();
+			cursor = cursor->link;
 		}
+		cursor = nullptr;
 	}
-	void sortEntries() {
-		for (int c = 1; c < length; c++) {
-			int i = c;
-			bool placeFound = false;
-			while (i > 0 && !placeFound) {
-				if (addressList[i].getLastName() < addressList[i - 1].getLastName()) {
-					extPersonType temp = addressList[i];
-					addressList[i].setLastName(addressList[i - 1].getLastName());
-					addressList[i - 1] = temp;
-					i--;
+	void manualEntry() {
+		extPersonType newNode;
+		string tempFname;
+		string tempLname;
+		int tempDay;
+		int tempMonth;
+		int tempYear;
+		string tempAddress;
+		string tempAddress1;
+		string tempCity;
+		string tempState;
+		int tempZip;
+		string tempPhone;
+		string tempRelation;
+		string line;
+		cout << "Enter First Name: ";
+		cin >> tempFname;
+		newNode.setFirstName(tempFname);
+		cout << endl << "Enter Last Name: ";
+		cin >> tempLname;
+		newNode.setLastName(tempLname);
+		cout << endl << "Enter Birthday (M D Y): ";
+		cin >> tempMonth >> tempDay >> tempYear;
+		newNode.birthday.setDate(tempMonth, tempDay, tempYear);
+		cout << endl << "Enter Street Address: ";
+		cin >> tempAddress;
+		getline(cin, tempAddress1);
+		newNode.address.setAddress(tempAddress + tempAddress1);
+		cout << endl << "Enter City: ";
+		cin >> tempCity;
+		newNode.address.setCity(tempCity);
+		cout << endl << "Enter State: ";
+		cin >> tempState;
+		newNode.address.setState(tempState);
+		cout << endl << "Enter Zip Code: ";
+		cin >> tempZip;
+		newNode.address.setZipcode(tempZip);
+		cout << endl << "Enter Phone Number: ";
+		cin >> tempPhone;
+		newNode.setPhoneNumber(tempPhone);
+		cout << endl << "Enter Relationship: ";
+		cin >> tempRelation;
+		addEntry(newNode);
+	}
+	void manualRemoveEntry() {
+		string lName;
+		string fName;
+		cout << "Enter Last Name: ";
+		cin >> lName;
+		cout << endl << "Enter First Name: ";
+		cin >> fName;
+		cursor = this->first;
+		nodeType<extPersonType>* searcher = first;
+		while (searcher != nullptr) {
+			if (searcher->info.getLastName() == lName && searcher->info.getFirstName() == fName) {
+				cout << "Should the Following Entry be Deleted (Y/N)?: " << endl;
+				searcher->info.print();
+				string choice;
+				cin >> choice;
+				if (choice == "Y") {
+					if (searcher == first) {
+						first = first->link;
+					}
+					else {
+						cursor->link = searcher->link;
+						if (searcher == last) {
+							last = cursor;
+						}
+					}
+					cout << endl << "Entry has been Deleted.";
 				}
 				else {
-					placeFound = true;
+					cout << endl << "Entry has not been Deleted. ";
 				}
 			}
+			searcher = searcher->link;
+			cursor = cursor->link;
 		}
+
+	}
+	void saveData() {
+		ofstream file("Text1.txt");
+		cursor = first;
+		while (cursor != nullptr) {
+			file << cursor->info.getFirstName() << " " << cursor->info.getLastName() << endl;
+			file << cursor->info.birthday.getMonth() << " " << cursor->info.birthday.getDay() << " " << cursor->info.birthday.getYear() << endl;
+			file << cursor->info.address.getAddress() << endl;
+			file << cursor->info.address.getCity() << endl;
+			file << cursor->info.address.getState() << endl;
+			file << cursor->info.address.getZip() << endl;
+			file << cursor->info.getPhoneNumber() << endl;
+			file << cursor->info.getRelationship() << endl;
+			cursor = cursor->link;
+		}
+		file.close();
 	}
 private:
-	extPersonType addressList[15];
-	int length;
-	int maxLength;
+	nodeType<extPersonType>* cursor;
 };
-
+ 

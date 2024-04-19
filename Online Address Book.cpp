@@ -10,7 +10,9 @@ void showMenu() {
 		cout << "Enter 2 to Search by Birth Month" << endl;
 		cout << "Enter 3 to Search by Relationship" << endl;
 		cout << "Enter 4 to Show all Entries" << endl;
-		cout << "Enter 5 to Quit" << endl;
+		cout << "Enter 5 to Create new Entry" << endl;
+		cout << "Enter 6 to Delete an Entry" << endl;
+		cout << "Enter 7 to Quit" << endl;
 		int choice;
 		cin >> choice;
 		if (choice == 1) {
@@ -42,9 +44,18 @@ void showMenu() {
 			cout << endl;
 		}
 		if (choice == 5) {
+			addressBook.manualEntry();
+			cout << endl;
+		}
+		if (choice == 6) {
+			addressBook.manualRemoveEntry();
+			cout << endl;
+		}
+		if (choice == 7) {
 			w = 0;
 		}
 	}
+	addressBook.saveData();
 };
 
 int main() {
